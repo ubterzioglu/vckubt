@@ -11,6 +11,9 @@ export function MainLayout({ children }: MainLayoutProps) {
         <h2>FirmaScope</h2>
         <nav style={{ marginTop: '20px' }}>
           <a href="#/" style={{ display: 'block', padding: '10px 0', textDecoration: 'none', color: '#333' }}>
+            Ana Sayfa
+          </a>
+          <a href="#/dashboard" style={{ display: 'block', padding: '10px 0', textDecoration: 'none', color: '#333' }}>
             Dashboard
           </a>
           <a href="#/companies" style={{ display: 'block', padding: '10px 0', textDecoration: 'none', color: '#333' }}>

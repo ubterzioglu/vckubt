@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-export function Login() {
+type LoginMode = 'page' | 'inline';
+
+interface LoginProps {
+  mode?: LoginMode;
+}
+
+export function Login({ mode = 'page' }: LoginProps) {
   const navigate = useNavigate();
   const { signInWithGoogle, signIn, signUp, isLoading } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
@@ -40,8 +46,10 @@ export function Login() {
     }
   };
 
+  const isInline = mode === 'inline';
+
   return (
-    <div className="login-container">
+    <div className={`login-container${isInline ? ' inline' : ''}`}>
       <div className="login-card">
         <h1>FirmaScope</h1>
         <p>Hoş geldiniz</p>
@@ -129,6 +137,12 @@ export function Login() {
             Ubuntu, Cantarell, sans-serif;
         }
 
+        .login-container.inline {
+          min-height: auto;
+          background: transparent;
+          align-items: flex-start;
+        }
+
         .login-card {
           background: white;
           padding: 40px;
@@ -137,6 +151,11 @@ export function Login() {
           text-align: center;
           width: 100%;
           max-width: 400px;
+        }
+
+        .login-container.inline .login-card {
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+          padding: 28px;
         }
 
         .login-card h1 {
