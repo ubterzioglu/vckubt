@@ -1,32 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Building2, Users, FolderOpen, FileText, Activity, Plus, ArrowRight, Clock } from 'lucide-react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-interface DashboardStats {
-  companiesCount: number;
-  contactsCount: number;
-  projectsCount: number;
-  documentsCount: number;
-}
-
-interface RecentActivity {
-  id: number;
-  type: string;
-  subject: string;
-  notes: string;
-  activity_date: string;
-  company_name?: string;
-  contact_name?: string;
-}
-
-interface RecentCompany {
-  id: number;
-  name: string;
-  sector: string;
-  created_at: string;
-}
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();

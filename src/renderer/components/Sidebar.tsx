@@ -7,13 +7,13 @@ import {
   FileText, 
   Settings, 
   Home,
-  Search,
   Activity,
   FolderOpen,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  LogOut
 } from 'lucide-react';
-import { Input } from './ui/input';
+import { useAuth } from '../context/AuthContext';
 
 interface SidebarProps {
   className?: string;
@@ -21,7 +21,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const { logout } = useAuth();
 
   const navItems = [
     { to: '/', icon: Home, label: 'Dashboard' },
@@ -32,10 +32,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     { to: '/documents', icon: FileText, label: 'Dökümanlar' },
     { to: '/settings', icon: Settings, label: 'Ayarlar' },
   ];
-
-  const filteredItems = searchTerm 
-    ? navItems.filter(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()))
-    : navItems;
 
   return (
     <aside 
@@ -66,21 +62,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       {/* Search */}
       {!collapsed && (
         <div className="p-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input 
-              placeholder="Ara..." 
-              className="pl-9 bg-slate-800 border-slate-700 text-white placeholder:text-slate-400"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+          <p className="text-xs text-slate-400">Menü</p>
         </div>
       )}
 
       {/* Navigation */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-        {filteredItems.map((item) => (
+        {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
@@ -102,13 +90,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       </nav>
 
       {/* Footer */}
-      {!collapsed && (
-        <div className="p-4 border-t border-slate-700">
-          <p className="text-xs text-slate-400 text-center">
-            FirmaScope v1.0.0
-          </p>
-        </div>
-      )}
+      <div className="p-3 border-t border-slate-700">
+        <button 
+          onClick={() => logout()}
+          className={cn(
+            'w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            'text-slate-300 hover:bg-slate-800 hover:text-white',
+            collapsed && 'justify-center'
+          )}
+          title={collapsed ? 'Çıkış' : undefined}
+        >
+          <LogOut className="w-5 h-5 flex-shrink-0" />
+          {!collapsed && <span>Çıkış Yap</span>}
+        </button>
+      </div>
     </aside>
   );
 };

@@ -1,17 +1,23 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { MainLayout } from './layouts/MainLayout';
 import { Login } from './pages/Login';
-import { Dashboard } from './pages/Dashboard';
-import { Companies } from './pages/Companies';
-import { CompanyDetail } from './pages/CompanyDetail';
-import { Contacts } from './pages/Contacts';
-import { ContactDetail } from './pages/ContactDetail';
-import { Documents } from './pages/Documents';
-import { Activities } from './pages/Activities';
-import { Projects } from './pages/Projects';
-import { Settings } from './pages/Settings';
+
+// Placeholder components
+const MainLayout = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'flex', height: '100vh' }}>
+    {children}
+  </div>
+);
+const Dashboard = () => <div style={{ padding: '24px' }}><h1>Dashboard (Placeholder)</h1></div>;
+const Companies = () => <div style={{ padding: '24px' }}><h1>Companies</h1></div>;
+const CompanyDetail = () => <div style={{ padding: '24px' }}><h1>Company Detail</h1></div>;
+const Contacts = () => <div style={{ padding: '24px' }}><h1>Contacts</h1></div>;
+const ContactDetail = () => <div style={{ padding: '24px' }}><h1>Contact Detail</h1></div>;
+const Documents = () => <div style={{ padding: '24px' }}><h1>Documents</h1></div>;
+const Activities = () => <div style={{ padding: '24px' }}><h1>Activities</h1></div>;
+const Projects = () => <div style={{ padding: '24px' }}><h1>Projects</h1></div>;
+const Settings = () => <div style={{ padding: '24px' }}><h1>Settings</h1></div>;
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
